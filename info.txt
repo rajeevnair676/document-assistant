@@ -1,0 +1,8 @@
+RAG phases:
+
+
+1. Upload the documents and parse the docs to text
+2. Convert the texts to chunks and save the chunks
+3. Vectorize the chunks and save it to vector database
+4. Indexing the documents and creating the retriever flow
+5. 

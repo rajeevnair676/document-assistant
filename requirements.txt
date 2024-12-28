@@ -1,0 +1,10 @@
+streamlit
+langchain
+langchain-community
+langchain-groq
+python-docx
+pdfplumber
+pymupdf
+spacy
+sentence-transformers
+faiss-cpu
