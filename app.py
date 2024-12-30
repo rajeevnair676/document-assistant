@@ -13,9 +13,9 @@ import os
 import pickle
 import time
 
-import torch
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(device)
+# import torch
+# device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# print(device)
 
 # Set up Streamlit configuration
 st.set_page_config(page_icon="📄", layout="wide", page_title="Doc & PDF Chatbot with Context")
@@ -76,8 +76,8 @@ def initialize_vectorstore(documents: List[LangchainDocument]):
     if not st.session_state.vectorstore_initialized:
         with st.spinner("Generating embeddings and initializing vectorstore. This may take a moment..."):
             time.sleep(0.5)
-            embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2",
-                                               model_kwargs = {'device': 'cuda'})
+            embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2",)
+                                            #    model_kwargs = {'device': 'cuda'})
             vectorstore = FAISS.from_documents(documents, embeddings)
             st.session_state.vectorstore = vectorstore
             st.session_state.vectorstore_initialized = True

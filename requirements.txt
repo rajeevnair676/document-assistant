@@ -8,4 +8,3 @@ pymupdf
 spacy
 sentence-transformers
 faiss-cpu
-torch
