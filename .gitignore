@@ -9,3 +9,5 @@ temp.pdf
 .env
 tests/
 vectorstore.pkl
+sample_app.py
+trial_app.py
