@@ -30,7 +30,8 @@ def icon(emoji: str):
 icon("🤖")
 st.subheader("Document Assistant", divider="rainbow", anchor=False)
 
-load_dotenv()
+groq_api_key = st.sidebar.text_input("Groq API Key", type="password")
+# load_dotenv()
 
 VECTORSTORE_PATH = "./vectorstore.pkl"
 
@@ -88,8 +89,9 @@ def initialize_qa_chain():
     if st.session_state.vectorstore and st.session_state.qa_chain is None:
         retriever = st.session_state.vectorstore.as_retriever(search_kwargs={"k": 2})
         memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+
         st.session_state.qa_chain = ConversationalRetrievalChain.from_llm(
-            ChatGroq(temperature=0, model_name="llama3-8b-8192"),
+            ChatGroq(temperature=0, model_name="llama3-8b-8192",api_key=groq_api_key),
             retriever=retriever,
             memory=memory,
         )
@@ -101,25 +103,28 @@ def save_vectorstore(vectorstore):
         pickle.dump(vectorstore, f)
 
 # File uploader for Word and PDF documents
-uploaded_file = st.sidebar.file_uploader("Upload a Word or PDF document (.docx, .pdf)", type=["docx", "pdf"])
+if not groq_api_key:
+    st.warning("Please enter your Groq API key!", icon="⚠")
+else:
+    uploaded_file = st.sidebar.file_uploader("Upload a Word or PDF document (.docx, .pdf)", type=["docx", "pdf"])
 
-if uploaded_file and not st.session_state.vectorstore_initialized:
-    if os.path.exists(VECTORSTORE_PATH):
-        os.remove(VECTORSTORE_PATH)
+    if uploaded_file and not st.session_state.vectorstore_initialized:
+        if os.path.exists(VECTORSTORE_PATH):
+            os.remove(VECTORSTORE_PATH)
 
-    with st.spinner("Processing uploaded document..."):
-        time.sleep(0.5)
-        if uploaded_file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
-            documents = parse_word_document(uploaded_file)
-        elif uploaded_file.type == "application/pdf":
-            documents = parse_pdf_document(uploaded_file)
-        else:
-            st.error("Unsupported file type. Please upload a .docx or .pdf file.", icon="🚨")
-            documents = []
+        with st.spinner("Processing uploaded document..."):
+            time.sleep(0.5)
+            if uploaded_file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+                documents = parse_word_document(uploaded_file)
+            elif uploaded_file.type == "application/pdf":
+                documents = parse_pdf_document(uploaded_file)
+            else:
+                st.error("Unsupported file type. Please upload a .docx or .pdf file.", icon="🚨")
+                documents = []
 
-    if documents:
-        initialize_vectorstore(documents)
-        initialize_qa_chain()
+        if documents:
+            initialize_vectorstore(documents)
+            initialize_qa_chain()
 
 if prompt := st.chat_input("Enter your question here..."):
     # Append the user's question to the chat history
