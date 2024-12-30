@@ -159,6 +159,7 @@ if prompt := st.chat_input("Enter your question here..."):
                 # Update the placeholder with the actual assistant response
                 assistant_message.markdown(assistant_response)
         else:
-            st.warning("Please upload a document to initialize the QA system.")
+            st.warning("Please upload a document to initialize the QA system and make sure you have entered the API key. "
+                       "You can get an api key by signing in into https://console.groq.com/")
     except Exception as e:
         assistant_message.markdown(f"Error during QA processing: {e}")
