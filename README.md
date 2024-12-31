@@ -26,6 +26,9 @@ Please follow the below instructions to run the streamlit application:
 
 This will open the application in browser and you can input the API key and upload a document and chat with it!!
 
+If you're lazy to do this, I have deployed the application to streamlit community, you can directly access the application from the below link:
+https://ragdocumentai.streamlit.app/
+
 ## Future Considerations:
 1. Need to include more document types
 2. Working on multimodal data like images in the document uploaded
