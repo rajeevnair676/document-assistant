@@ -1,4 +1,4 @@
-## Document Assistant with RAG
+## Simple Document Assistant with RAG
 
 The document-assistant is a streamlit application that enables you to upload any document eg: PDF or word document, and chat with the document about its contents. You can ask specific questions to the chatbot and it will retrieve relevant information from the document uploaded and give the most appropriate response with the help of LLM(Large Language Model).
 
