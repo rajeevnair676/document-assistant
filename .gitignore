@@ -11,3 +11,6 @@ tests/
 vectorstore.pkl
 sample_app.py
 trial_app.py
+fastapi_app.py
+fastapi_app.ipynb
+app.log
