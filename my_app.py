@@ -39,7 +39,7 @@ def doc_text_splitter(document,chunk_size,chunk_overlap):
     doc_split = splitter.split_documents(document)
     return doc_split
 
-def create_embeddings(split_doc,model,device='cpu'):
+def create_embeddings(model,device='cpu'):
     model_kwargs = {'device':device}
     embeddings = HuggingFaceEmbeddings(model_name=model,
                            model_kwargs=model_kwargs)
@@ -92,12 +92,11 @@ def chat(query,rag_retriever,qa_chain):
 if __name__ == "__main__":
     load_dotenv()
     document = pdf_parser(config.PDF_PATH)
-    doc_split = doc_text_splitter(document =document,
+    doc_split = doc_text_splitter(document=document,
                                   chunk_size=config.CHUNK_SIZE,
                                   chunk_overlap=config.CHUNK_OVERLAP)
-    embeddings = create_embeddings(split_doc = doc_split,
-                                              model = config.MODEL_NAME,
-                                              device=config.DEVICE
+    embeddings = create_embeddings(model=config.MODEL_NAME,
+                                    device=config.DEVICE
     )
     vector_store = create_vector_store(embeddings,doc_split)
     llm = ChatGroq(model_name=config.LLM_MODEL)
@@ -106,9 +105,10 @@ if __name__ == "__main__":
                                               config.CONTEXTUALIZE_Q_PROMPT,
                                               config.QA_SYSTEM_PROMPT
     )
-    # query = str(input("Enter your query: "))
-    query = "What are the compatible media devices"
-    print(query)
-    response = chat(query,rag_retriever,qa_chain)
-    print(response)
 
+    query = str(input("Me: "))
+    while query.casefold()!="end":
+        print(query.casefold())
+        response = chat(query,rag_retriever,qa_chain)
+        print("Assistant: ",response,"\n")
+        query = str(input("Enter your query: "))

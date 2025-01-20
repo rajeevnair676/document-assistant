@@ -1,10 +1,10 @@
 # Config constants
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
-PDF_PATH = r'docs\Lenovo_user_guide.pdf'
+PDF_PATH = r"C:\Users\Rajeev\Downloads\Resume_Rajeev.pdf"
 MODEL_NAME = 'sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2'
-CHUNK_SIZE = 1000
-CHUNK_OVERLAP = 200
+CHUNK_SIZE = 750
+CHUNK_OVERLAP = 150
 DEVICE = 'cpu'
 LLM_MODEL = "llama3-8b-8192"
 
