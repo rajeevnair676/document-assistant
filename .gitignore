@@ -1,13 +1,17 @@
 pymupdf-1.25.1-cp39-abi3-win_amd64.whl
-.env
+__pycache__/
 docs/285742.docx
 docs/Health Companion-Health Insurance Plan_GEN617.docx
 docs/nke-10k-2023.pdf
 docs/Sample_doc.docx
 docs/VWAccessories Catalogue_2020_spread.pdf
+docs/Lenovo_user_guide.pdf
 temp.pdf
 .env
 tests/
 vectorstore.pkl
 sample_app.py
 trial_app.py
+fastapi_app.py
+fastapi_app.ipynb
+app.log
